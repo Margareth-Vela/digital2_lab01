@@ -234,8 +234,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f887.h: 3546: __asm("EECON2 equ 018Dh");
 [; <" EECON2 equ 018Dh ;# ">
 "9 Display.c
-[; ;Display.c: 9: uint8_t tab7seg[10]={0x3F,0x06,0x5B,0x4F,0x66,0x6D,0x7D,0x07,0x7F,0x67};
-[v _tab7seg `uc ~T0 @X0 -> 10 `i e ]
+[; ;Display.c: 9: uint8_t tab7seg[16]={0x3F,0x06,0x5B,0x4F,0x66,0x6D,0x7D,0x07,0x7F,0x6F,0x77,0x7C,0x39,0x5E,0X79,0X71};
+[v _tab7seg `uc ~T0 @X0 -> 16 `i e ]
 [i _tab7seg
 :U ..
 -> -> 63 `i `uc
@@ -247,7 +247,13 @@ Version 4.0 HI-TECH Software Intermediate Code
 -> -> 125 `i `uc
 -> -> 7 `i `uc
 -> -> 127 `i `uc
--> -> 103 `i `uc
+-> -> 111 `i `uc
+-> -> 119 `i `uc
+-> -> 124 `i `uc
+-> -> 57 `i `uc
+-> -> 94 `i `uc
+-> -> 121 `i `uc
+-> -> 113 `i `uc
 ..
 ]
 "11

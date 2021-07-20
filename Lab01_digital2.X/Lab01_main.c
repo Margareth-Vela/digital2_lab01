@@ -22,7 +22,7 @@
 //------------------------------------------------------------------------------
 //                          Directivas del compilador
 //------------------------------------------------------------------------------
-#define _XTAL_FREQ 8000000 //Para delay
+#define _XTAL_FREQ 4000000 //Para delay
 
 //------------------------------------------------------------------------------
 //                          Palabras de configuración
@@ -46,7 +46,7 @@
                                 //Internal/External Switchover mode is disabled
 #pragma config FCMEN = OFF      // Fail-Safe Clock Monitor Enabled bit 
                                 //(Fail-Safe Clock Monitor is disabled)
-#pragma config LVP = OFF         //Low Voltage Programming Enable bit(RB3/PGM pin 
+#pragma config LVP = ON         //Low Voltage Programming Enable bit(RB3/PGM pin 
                                 //has PGM function, low voltage programming 
                                 //enabled)
 // CONFIG2
@@ -58,12 +58,11 @@
 //------------------------------------------------------------------------------
 //                          Variables
 //------------------------------------------------------------------------------
-uint8_t unidad_display; //variables para displays
-uint8_t decena_display;
+uint8_t unidad_display = 0; //variables para displays
+uint8_t decena_display = 0;
 uint8_t var_temp; 
-uint8_t unidad_temp;
-uint8_t decena_temp;
-uint8_t tab7seg[10]={0x3F,0x06,0x5B,0x4F,0x66,0x6D,0x7D,0x07,0x7F,0x67}; //Tabla
+uint8_t unidad_temp = 0;
+uint8_t decena_temp = 0;
 
 //------------------------------------------------------------------------------
 //                          Prototipos
@@ -82,10 +81,16 @@ void main(void) {
             ADC(6);
             ADCON0bits.GO = 1; //Se vuelve a ejecutar la conversión ADC
         }
-        unidad_temp = 5;
-        decena_temp = 6;
+        PORTEbits.RE0 = 0;
+        unidad_temp = var_temp & 0x0F;
+        decena_temp = var_temp & 0xF0;
         unidad_display = number(unidad_temp);
         decena_display = number(decena_temp);
+        
+        if(var_temp == PORTA){
+            PORTEbits.RE0 = 1;
+            __delay_ms(50);
+        }
         }
     return;
 }
@@ -96,15 +101,16 @@ void main(void) {
 void __interrupt() isr(void){
 
     if (INTCONbits.T0IF){ //Int TMR0
-        if(PORTDbits.RD1 == 1){
+        PORTD = 0x00;
+        if(PORTEbits.RE2 == 0){
             PORTC = unidad_display; //Se muestra el valor de unidades
             PORTDbits.RD0 = 1; //Se enciende el transistor con el display de unidades
-            PORTDbits.RD1 = 0; //Se enciende el transistor con el display de unidades
+            PORTEbits.RE2 = 1; //Se enciende el transistor con el display de unidades
         }
-        else {
+        else if(PORTEbits.RE2 == 1){
             PORTC = decena_display; //Se muestra el valor de decenas
             PORTDbits.RD1 = 1; //Se enciende el transistor con el display de decenas
-            PORTDbits.RD0 = 0; //Se enciende el transistor con el display de unidades
+            PORTEbits.RE2 = 0; //Se enciende el transistor con el display de unidades
         }        
         TMR0 = 235; //Se reinicia el TMR0
         INTCONbits.T0IF = 0; //Se limpia la bandera
@@ -133,9 +139,9 @@ void __interrupt() isr(void){
 void setup(){
     
     //Configuracion reloj
-    OSCCONbits.IRCF2 = 1; //Frecuencia a 8MHZ
+    OSCCONbits.IRCF2 = 1; //Frecuencia a 4MHZ
     OSCCONbits.IRCF1 = 1;
-    OSCCONbits.IRCF0 = 1;
+    OSCCONbits.IRCF0 = 0;
     OSCCONbits.SCS = 1;
     
     //Configurar entradas y salidas
@@ -172,6 +178,10 @@ void setup(){
     INTCONbits.GIE = 1;
     INTCONbits.T0IE = 1;
     INTCONbits.T0IF = 0;
+    INTCONbits.PEIE = 1; //Enable interrupciones periféricas
+    PIE1bits.ADIE = 1;   //Enable interrupción ADC
+    PIR1bits.ADIF = 0;   //Se limpia bandera de interrupción ADC
+    
     
     //Interrupcion PORTB
     INTCONbits.RBIE = 1; 

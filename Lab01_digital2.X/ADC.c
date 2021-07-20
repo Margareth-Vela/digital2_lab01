@@ -11,7 +11,7 @@
 //------------------------------------------------------------------------------
 //                          Directivas del compilador
 //------------------------------------------------------------------------------
-#define _XTAL_FREQ 8000000 //Para delay
+#define _XTAL_FREQ 4000000 //Para delay
 
 void ADC(uint8_t channel) {
     switch (channel){

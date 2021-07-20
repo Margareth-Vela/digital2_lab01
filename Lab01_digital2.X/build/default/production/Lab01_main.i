@@ -2661,7 +2661,7 @@ uint8_t number(uint8_t digito);
 
 #pragma config FCMEN = OFF
 
-#pragma config LVP = OFF
+#pragma config LVP = ON
 
 
 
@@ -2673,12 +2673,11 @@ uint8_t number(uint8_t digito);
 
 
 
-uint8_t unidad_display;
-uint8_t decena_display;
+uint8_t unidad_display = 0;
+uint8_t decena_display = 0;
 uint8_t var_temp;
-uint8_t unidad_temp;
-uint8_t decena_temp;
-uint8_t tab7seg[10]={0x3F,0x06,0x5B,0x4F,0x66,0x6D,0x7D,0x07,0x7F,0x67};
+uint8_t unidad_temp = 0;
+uint8_t decena_temp = 0;
 
 
 
@@ -2697,10 +2696,16 @@ void main(void) {
             ADC(6);
             ADCON0bits.GO = 1;
         }
-        unidad_temp = 5;
-        decena_temp = 6;
+        PORTEbits.RE0 = 0;
+        unidad_temp = var_temp & 0x0F;
+        decena_temp = var_temp & 0xF0;
         unidad_display = number(unidad_temp);
         decena_display = number(decena_temp);
+
+        if(var_temp == PORTA){
+            PORTEbits.RE0 = 1;
+            _delay((unsigned long)((50)*(4000000/4000.0)));
+        }
         }
     return;
 }
@@ -2711,15 +2716,16 @@ void main(void) {
 void __attribute__((picinterrupt(("")))) isr(void){
 
     if (INTCONbits.T0IF){
-        if(PORTDbits.RD1 == 1){
+        PORTD = 0x00;
+        if(PORTEbits.RE2 == 0){
             PORTC = unidad_display;
             PORTDbits.RD0 = 1;
-            PORTDbits.RD1 = 0;
+            PORTEbits.RE2 = 1;
         }
-        else {
+        else if(PORTEbits.RE2 == 1){
             PORTC = decena_display;
             PORTDbits.RD1 = 1;
-            PORTDbits.RD0 = 0;
+            PORTEbits.RE2 = 0;
         }
         TMR0 = 235;
         INTCONbits.T0IF = 0;
@@ -2750,7 +2756,7 @@ void setup(){
 
     OSCCONbits.IRCF2 = 1;
     OSCCONbits.IRCF1 = 1;
-    OSCCONbits.IRCF0 = 1;
+    OSCCONbits.IRCF0 = 0;
     OSCCONbits.SCS = 1;
 
 
@@ -2780,13 +2786,17 @@ void setup(){
 
     ADCON0bits.ADCS = 0b10;
     ADCON0bits.CHS = 6;
-    _delay((unsigned long)((50)*(8000000/4000000.0)));
+    _delay((unsigned long)((50)*(4000000/4000000.0)));
     ADCON0bits.ADON = 1;
 
 
     INTCONbits.GIE = 1;
     INTCONbits.T0IE = 1;
     INTCONbits.T0IF = 0;
+    INTCONbits.PEIE = 1;
+    PIE1bits.ADIE = 1;
+    PIR1bits.ADIF = 0;
+
 
 
     INTCONbits.RBIE = 1;

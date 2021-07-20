@@ -278,8 +278,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;ADC.c: 19:             ADCON0bits.CHS = 0;
 [e = . . _ADCON0bits 0 2 -> -> 0 `i `uc ]
 "20
-[; ;ADC.c: 20:             _delay((unsigned long)((50)*(8000000/4000000.0)));
-[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 8000000 `l `d .4000000.0 `ul ]
+[; ;ADC.c: 20:             _delay((unsigned long)((50)*(4000000/4000000.0)));
+[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 4000000 `l `d .4000000.0 `ul ]
 "21
 [; ;ADC.c: 21:             break;
 [e $U 139  ]
@@ -290,8 +290,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;ADC.c: 23:             ADCON0bits.CHS = 1;
 [e = . . _ADCON0bits 0 2 -> -> 1 `i `uc ]
 "24
-[; ;ADC.c: 24:             _delay((unsigned long)((50)*(8000000/4000000.0)));
-[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 8000000 `l `d .4000000.0 `ul ]
+[; ;ADC.c: 24:             _delay((unsigned long)((50)*(4000000/4000000.0)));
+[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 4000000 `l `d .4000000.0 `ul ]
 "25
 [; ;ADC.c: 25:             break;
 [e $U 139  ]
@@ -302,8 +302,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;ADC.c: 27:             ADCON0bits.CHS = 2;
 [e = . . _ADCON0bits 0 2 -> -> 2 `i `uc ]
 "28
-[; ;ADC.c: 28:             _delay((unsigned long)((50)*(8000000/4000000.0)));
-[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 8000000 `l `d .4000000.0 `ul ]
+[; ;ADC.c: 28:             _delay((unsigned long)((50)*(4000000/4000000.0)));
+[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 4000000 `l `d .4000000.0 `ul ]
 "29
 [; ;ADC.c: 29:             break;
 [e $U 139  ]
@@ -314,8 +314,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;ADC.c: 31:             ADCON0bits.CHS = 3;
 [e = . . _ADCON0bits 0 2 -> -> 3 `i `uc ]
 "32
-[; ;ADC.c: 32:             _delay((unsigned long)((50)*(8000000/4000000.0)));
-[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 8000000 `l `d .4000000.0 `ul ]
+[; ;ADC.c: 32:             _delay((unsigned long)((50)*(4000000/4000000.0)));
+[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 4000000 `l `d .4000000.0 `ul ]
 "33
 [; ;ADC.c: 33:             break;
 [e $U 139  ]
@@ -326,8 +326,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;ADC.c: 35:             ADCON0bits.CHS = 4;
 [e = . . _ADCON0bits 0 2 -> -> 4 `i `uc ]
 "36
-[; ;ADC.c: 36:             _delay((unsigned long)((50)*(8000000/4000000.0)));
-[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 8000000 `l `d .4000000.0 `ul ]
+[; ;ADC.c: 36:             _delay((unsigned long)((50)*(4000000/4000000.0)));
+[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 4000000 `l `d .4000000.0 `ul ]
 "37
 [; ;ADC.c: 37:             break;
 [e $U 139  ]
@@ -338,8 +338,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;ADC.c: 39:             ADCON0bits.CHS = 5;
 [e = . . _ADCON0bits 0 2 -> -> 5 `i `uc ]
 "40
-[; ;ADC.c: 40:             _delay((unsigned long)((50)*(8000000/4000000.0)));
-[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 8000000 `l `d .4000000.0 `ul ]
+[; ;ADC.c: 40:             _delay((unsigned long)((50)*(4000000/4000000.0)));
+[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 4000000 `l `d .4000000.0 `ul ]
 "41
 [; ;ADC.c: 41:             break;
 [e $U 139  ]
@@ -350,8 +350,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;ADC.c: 43:             ADCON0bits.CHS = 6;
 [e = . . _ADCON0bits 0 2 -> -> 6 `i `uc ]
 "44
-[; ;ADC.c: 44:             _delay((unsigned long)((50)*(8000000/4000000.0)));
-[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 8000000 `l `d .4000000.0 `ul ]
+[; ;ADC.c: 44:             _delay((unsigned long)((50)*(4000000/4000000.0)));
+[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 4000000 `l `d .4000000.0 `ul ]
 "45
 [; ;ADC.c: 45:             break;
 [e $U 139  ]
@@ -362,8 +362,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;ADC.c: 47:             ADCON0bits.CHS = 7;
 [e = . . _ADCON0bits 0 2 -> -> 7 `i `uc ]
 "48
-[; ;ADC.c: 48:             _delay((unsigned long)((50)*(8000000/4000000.0)));
-[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 8000000 `l `d .4000000.0 `ul ]
+[; ;ADC.c: 48:             _delay((unsigned long)((50)*(4000000/4000000.0)));
+[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 4000000 `l `d .4000000.0 `ul ]
 "49
 [; ;ADC.c: 49:             break;
 [e $U 139  ]
@@ -374,8 +374,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;ADC.c: 51:             ADCON0bits.CHS = 8;
 [e = . . _ADCON0bits 0 2 -> -> 8 `i `uc ]
 "52
-[; ;ADC.c: 52:             _delay((unsigned long)((50)*(8000000/4000000.0)));
-[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 8000000 `l `d .4000000.0 `ul ]
+[; ;ADC.c: 52:             _delay((unsigned long)((50)*(4000000/4000000.0)));
+[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 4000000 `l `d .4000000.0 `ul ]
 "53
 [; ;ADC.c: 53:             break;
 [e $U 139  ]
@@ -386,8 +386,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;ADC.c: 55:             ADCON0bits.CHS = 9;
 [e = . . _ADCON0bits 0 2 -> -> 9 `i `uc ]
 "56
-[; ;ADC.c: 56:             _delay((unsigned long)((50)*(8000000/4000000.0)));
-[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 8000000 `l `d .4000000.0 `ul ]
+[; ;ADC.c: 56:             _delay((unsigned long)((50)*(4000000/4000000.0)));
+[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 4000000 `l `d .4000000.0 `ul ]
 "57
 [; ;ADC.c: 57:             break;
 [e $U 139  ]
@@ -398,8 +398,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;ADC.c: 59:             ADCON0bits.CHS = 10;
 [e = . . _ADCON0bits 0 2 -> -> 10 `i `uc ]
 "60
-[; ;ADC.c: 60:             _delay((unsigned long)((50)*(8000000/4000000.0)));
-[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 8000000 `l `d .4000000.0 `ul ]
+[; ;ADC.c: 60:             _delay((unsigned long)((50)*(4000000/4000000.0)));
+[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 4000000 `l `d .4000000.0 `ul ]
 "61
 [; ;ADC.c: 61:             break;
 [e $U 139  ]
@@ -410,8 +410,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;ADC.c: 63:             ADCON0bits.CHS = 11;
 [e = . . _ADCON0bits 0 2 -> -> 11 `i `uc ]
 "64
-[; ;ADC.c: 64:             _delay((unsigned long)((50)*(8000000/4000000.0)));
-[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 8000000 `l `d .4000000.0 `ul ]
+[; ;ADC.c: 64:             _delay((unsigned long)((50)*(4000000/4000000.0)));
+[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 4000000 `l `d .4000000.0 `ul ]
 "65
 [; ;ADC.c: 65:             break;
 [e $U 139  ]
@@ -422,8 +422,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;ADC.c: 67:             ADCON0bits.CHS = 12;
 [e = . . _ADCON0bits 0 2 -> -> 12 `i `uc ]
 "68
-[; ;ADC.c: 68:             _delay((unsigned long)((50)*(8000000/4000000.0)));
-[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 8000000 `l `d .4000000.0 `ul ]
+[; ;ADC.c: 68:             _delay((unsigned long)((50)*(4000000/4000000.0)));
+[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 4000000 `l `d .4000000.0 `ul ]
 "69
 [; ;ADC.c: 69:             break;
 [e $U 139  ]
@@ -434,8 +434,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;ADC.c: 71:             ADCON0bits.CHS = 13;
 [e = . . _ADCON0bits 0 2 -> -> 13 `i `uc ]
 "72
-[; ;ADC.c: 72:             _delay((unsigned long)((50)*(8000000/4000000.0)));
-[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 8000000 `l `d .4000000.0 `ul ]
+[; ;ADC.c: 72:             _delay((unsigned long)((50)*(4000000/4000000.0)));
+[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 4000000 `l `d .4000000.0 `ul ]
 "73
 [; ;ADC.c: 73:             break;
 [e $U 139  ]
