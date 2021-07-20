@@ -17,6 +17,7 @@
  #include <xc.h>
  #include <stdint.h>
  #include "ADC.h"
+ #include "Display.h"
 
 //------------------------------------------------------------------------------
 //                          Directivas del compilador
@@ -57,9 +58,12 @@
 //------------------------------------------------------------------------------
 //                          Variables
 //------------------------------------------------------------------------------
-uint8_t unidad_display = 0; //variables para displays
-uint8_t decena_display = 0;
+uint8_t unidad_display; //variables para displays
+uint8_t decena_display;
 uint8_t var_temp; 
+uint8_t unidad_temp;
+uint8_t decena_temp;
+uint8_t tab7seg[10]={0x3F,0x06,0x5B,0x4F,0x66,0x6D,0x7D,0x07,0x7F,0x67}; //Tabla
 
 //------------------------------------------------------------------------------
 //                          Prototipos
@@ -78,6 +82,10 @@ void main(void) {
             ADC(6);
             ADCON0bits.GO = 1; //Se vuelve a ejecutar la conversión ADC
         }
+        unidad_temp = 5;
+        decena_temp = 6;
+        unidad_display = number(unidad_temp);
+        decena_display = number(decena_temp);
         }
     return;
 }
@@ -88,7 +96,7 @@ void main(void) {
 void __interrupt() isr(void){
 
     if (INTCONbits.T0IF){ //Int TMR0
-        if(PORTD == 2){
+        if(PORTDbits.RD1 == 1){
             PORTC = unidad_display; //Se muestra el valor de unidades
             PORTDbits.RD0 = 1; //Se enciende el transistor con el display de unidades
             PORTDbits.RD1 = 0; //Se enciende el transistor con el display de unidades
@@ -98,7 +106,7 @@ void __interrupt() isr(void){
             PORTDbits.RD1 = 1; //Se enciende el transistor con el display de decenas
             PORTDbits.RD0 = 0; //Se enciende el transistor con el display de unidades
         }        
-        TMR0 = 236; //Se reinicia el TMR0
+        TMR0 = 235; //Se reinicia el TMR0
         INTCONbits.T0IF = 0; //Se limpia la bandera
     }
     if(INTCONbits.RBIF){
@@ -112,7 +120,7 @@ void __interrupt() isr(void){
         INTCONbits.RBIF = 0; //Se limpia la bandera
     }
     if (PIR1bits.ADIF){
-        var_temp = ADRESH;    
+        var_temp = ADRESH;   
         PIR1bits.ADIF = 0; //Se limpia la bandera de ADC
     }
     

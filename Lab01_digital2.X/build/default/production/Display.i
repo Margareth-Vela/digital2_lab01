@@ -1,4 +1,4 @@
-# 1 "ADC.c"
+# 1 "Display.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,7 +6,7 @@
 # 1 "<built-in>" 2
 # 1 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "ADC.c" 2
+# 1 "Display.c" 2
 
 
 
@@ -2493,7 +2493,7 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 28 "C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 2 3
-# 7 "ADC.c" 2
+# 7 "Display.c" 2
 
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 1 3
 # 13 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 3
@@ -2628,81 +2628,11 @@ typedef int16_t intptr_t;
 
 
 typedef uint16_t uintptr_t;
-# 8 "ADC.c" 2
+# 8 "Display.c" 2
 
-# 1 "./ADC.h" 1
-# 13 "./ADC.h"
-# 1 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 1 3
-# 13 "./ADC.h" 2
+uint8_t tab7seg[10]={0x3F,0x06,0x5B,0x4F,0x66,0x6D,0x7D,0x07,0x7F,0x67};
 
-
-void ADC(uint8_t channel);
-# 9 "ADC.c" 2
-
-
-
-
-
-
-
-void ADC(uint8_t channel) {
-    switch (channel){
-        case 0:
-            ADCON0bits.CHS = 0;
-            _delay((unsigned long)((50)*(8000000/4000000.0)));
-            break;
-        case 1:
-            ADCON0bits.CHS = 1;
-            _delay((unsigned long)((50)*(8000000/4000000.0)));
-            break;
-        case 2:
-            ADCON0bits.CHS = 2;
-            _delay((unsigned long)((50)*(8000000/4000000.0)));
-            break;
-        case 3:
-            ADCON0bits.CHS = 3;
-            _delay((unsigned long)((50)*(8000000/4000000.0)));
-            break;
-        case 4:
-            ADCON0bits.CHS = 4;
-            _delay((unsigned long)((50)*(8000000/4000000.0)));
-            break;
-        case 5:
-            ADCON0bits.CHS = 5;
-            _delay((unsigned long)((50)*(8000000/4000000.0)));
-            break;
-        case 6:
-            ADCON0bits.CHS = 6;
-            _delay((unsigned long)((50)*(8000000/4000000.0)));
-            break;
-        case 7:
-            ADCON0bits.CHS = 7;
-            _delay((unsigned long)((50)*(8000000/4000000.0)));
-            break;
-        case 8:
-            ADCON0bits.CHS = 8;
-            _delay((unsigned long)((50)*(8000000/4000000.0)));
-            break;
-        case 9:
-            ADCON0bits.CHS = 9;
-            _delay((unsigned long)((50)*(8000000/4000000.0)));
-            break;
-        case 10:
-            ADCON0bits.CHS = 10;
-            _delay((unsigned long)((50)*(8000000/4000000.0)));
-            break;
-        case 11:
-            ADCON0bits.CHS = 11;
-            _delay((unsigned long)((50)*(8000000/4000000.0)));
-            break;
-        case 12:
-            ADCON0bits.CHS = 12;
-            _delay((unsigned long)((50)*(8000000/4000000.0)));
-            break;
-        default:
-            ADCON0bits.CHS = 13;
-            _delay((unsigned long)((50)*(8000000/4000000.0)));
-            break;
-    }
-    return;
+uint8_t number(uint8_t digito){
+    uint8_t data = tab7seg[digito];;
+    return data;
 }

@@ -2633,7 +2633,16 @@ typedef uint16_t uintptr_t;
 
 void ADC(uint8_t channel);
 # 19 "Lab01_main.c" 2
-# 30 "Lab01_main.c"
+
+# 1 "./Display.h" 1
+# 13 "./Display.h"
+# 1 "C:\\Program Files\\Microchip\\xc8\\v2.31\\pic\\include\\c90\\stdint.h" 1 3
+# 13 "./Display.h" 2
+
+
+uint8_t number(uint8_t digito);
+# 20 "Lab01_main.c" 2
+# 31 "Lab01_main.c"
 #pragma config FOSC = INTRC_NOCLKOUT
 
 
@@ -2664,9 +2673,12 @@ void ADC(uint8_t channel);
 
 
 
-uint8_t unidad_display = 0;
-uint8_t decena_display = 0;
+uint8_t unidad_display;
+uint8_t decena_display;
 uint8_t var_temp;
+uint8_t unidad_temp;
+uint8_t decena_temp;
+uint8_t tab7seg[10]={0x3F,0x06,0x5B,0x4F,0x66,0x6D,0x7D,0x07,0x7F,0x67};
 
 
 
@@ -2685,6 +2697,10 @@ void main(void) {
             ADC(6);
             ADCON0bits.GO = 1;
         }
+        unidad_temp = 5;
+        decena_temp = 6;
+        unidad_display = number(unidad_temp);
+        decena_display = number(decena_temp);
         }
     return;
 }
@@ -2695,7 +2711,7 @@ void main(void) {
 void __attribute__((picinterrupt(("")))) isr(void){
 
     if (INTCONbits.T0IF){
-        if(PORTD == 2){
+        if(PORTDbits.RD1 == 1){
             PORTC = unidad_display;
             PORTDbits.RD0 = 1;
             PORTDbits.RD1 = 0;
@@ -2705,7 +2721,7 @@ void __attribute__((picinterrupt(("")))) isr(void){
             PORTDbits.RD1 = 1;
             PORTDbits.RD0 = 0;
         }
-        TMR0 = 236;
+        TMR0 = 235;
         INTCONbits.T0IF = 0;
     }
     if(INTCONbits.RBIF){
