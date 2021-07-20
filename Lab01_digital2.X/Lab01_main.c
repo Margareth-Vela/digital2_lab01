@@ -4,7 +4,8 @@
  * Autor: Margareth Vela 
  * 
  * Programa: Interrupciones y librerías
- * Hardware:
+ * Hardware: Leds en PORTA, Display en PORTC, transistores en PORTD, Led y 
+ *           Potenciómetro en PORTE, & push buttons en PORTB.
  * 
  * Creado: Julio 19, 2021
  * Última modificación: Julio, 2021
@@ -116,16 +117,16 @@ void setup(){
     ANSEL = 0x00; //Pines digitales
     
     TRISA = 0x00; //Para salida del contador
-    TRISB = 0x02; //Para push buttons
+    TRISB = 0x03; //Para push buttons
     TRISC = 0x00; //Para salida de la LCD
                
     //Habilitar pullups
     OPTION_REGbits.nRBPU = 0;
-    WPUB = 0x02;
+    WPUB = 0x03;
     
     PORTA = 0x00; //Se limpian los puertos
     PORTD = 0x00;
-    PORTB = 0x02; //Para condición de mismatch     
+    PORTB = 0x03; //Para condición de mismatch     
     PORTC = 0x00;
     PORTE = 0x00;
     
@@ -136,7 +137,7 @@ void setup(){
     
     //Interrupcion PORTB
     INTCONbits.RBIE = 1; 
-    IOCB = 0x02;
+    IOCB = 0x03;
     INTCONbits.RBIF = 0; 	
    
     //Configurar TMR0
