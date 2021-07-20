@@ -1,5 +1,5 @@
 /*
- * Archivo:   Lab09.c
+ * Archivo:   Lab01_main.c
  * Dispositivo: PIC16F887
  * Autor: Margareth Vela 
  * 
@@ -16,6 +16,12 @@
 //------------------------------------------------------------------------------    
  #include <xc.h>
  #include <stdint.h>
+ #include "ADC.h"
+
+//------------------------------------------------------------------------------
+//                          Directivas del compilador
+//------------------------------------------------------------------------------
+#define _XTAL_FREQ 8000000 //Para delay
 
 //------------------------------------------------------------------------------
 //                          Palabras de configuración
@@ -53,6 +59,7 @@
 //------------------------------------------------------------------------------
 uint8_t unidad_display = 0; //variables para displays
 uint8_t decena_display = 0;
+uint8_t var_temp; 
 
 //------------------------------------------------------------------------------
 //                          Prototipos
@@ -64,8 +71,14 @@ void setup(void);  //Configuración
 //------------------------------------------------------------------------------
 void main(void) {
     setup(); //Configuración
-    while(1){
-    }
+    ADCON0bits.GO = 1; //La conversión ADC se ejecuta
+    while(1)
+    {
+        if(ADCON0bits.GO == 0){ //Si la conversión ya está terminada
+            ADC(6);
+            ADCON0bits.GO = 1; //Se vuelve a ejecutar la conversión ADC
+        }
+        }
     return;
 }
 
@@ -98,6 +111,11 @@ void __interrupt() isr(void){
 
         INTCONbits.RBIF = 0; //Se limpia la bandera
     }
+    if (PIR1bits.ADIF){
+        var_temp = ADRESH;    
+        PIR1bits.ADIF = 0; //Se limpia la bandera de ADC
+    }
+    
     return;
 }
 
@@ -114,11 +132,13 @@ void setup(){
     
     //Configurar entradas y salidas
     ANSELH = 0x00;//Pines digitales
-    ANSEL = 0x00; //Pines digitales
+    ANSEL = 0x40; //Pin analógico para POT
     
     TRISA = 0x00; //Para salida del contador
     TRISB = 0x03; //Para push buttons
-    TRISC = 0x00; //Para salida de la LCD
+    TRISC = 0x00; //Para salida del display
+    TRISD = 0x00; //Para transistores
+    TRISE = 0x02; //Para led de alarma y potenciometro
                
     //Habilitar pullups
     OPTION_REGbits.nRBPU = 0;
@@ -129,6 +149,16 @@ void setup(){
     PORTB = 0x03; //Para condición de mismatch     
     PORTC = 0x00;
     PORTE = 0x00;
+    
+    //Configurar ADC
+    ADCON1bits.ADFM = 0; //Justificar a la izquierda
+    ADCON1bits.VCFG0 = 0; //Vss
+    ADCON1bits.VCFG1 = 0; //VDD
+    
+    ADCON0bits.ADCS = 0b10; //ADC oscilador -> Fosc/32
+    ADCON0bits.CHS = 6;     //Comenzar en canal 6
+    __delay_us(50);        
+    ADCON0bits.ADON = 1;    //Habilitar la conversión ADC
     
     //Configurar la interrupcion
     INTCONbits.GIE = 1;
