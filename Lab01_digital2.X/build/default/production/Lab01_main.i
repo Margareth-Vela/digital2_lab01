@@ -2666,7 +2666,15 @@ uint8_t decena_display = 0;
 
 
 
+void setup(void);
+
+
+
+
 void main(void) {
+    setup();
+    while(1){
+    }
     return;
 }
 
@@ -2701,3 +2709,52 @@ void __attribute__((picinterrupt(("")))) isr(void){
     }
     return;
 }
+
+
+
+
+void setup(){
+
+
+    OSCCONbits.IRCF2 = 1;
+    OSCCONbits.IRCF1 = 1;
+    OSCCONbits.IRCF0 = 1;
+    OSCCONbits.SCS = 1;
+
+
+    ANSELH = 0x00;
+    ANSEL = 0x00;
+
+    TRISA = 0x00;
+    TRISB = 0x02;
+    TRISC = 0x00;
+
+
+    OPTION_REGbits.nRBPU = 0;
+    WPUB = 0x02;
+
+    PORTA = 0x00;
+    PORTD = 0x00;
+    PORTB = 0x02;
+    PORTC = 0x00;
+    PORTE = 0x00;
+
+
+    INTCONbits.GIE = 1;
+    INTCONbits.T0IE = 1;
+    INTCONbits.T0IF = 0;
+
+
+    INTCONbits.RBIE = 1;
+    IOCB = 0x02;
+    INTCONbits.RBIF = 0;
+
+
+    OPTION_REGbits.T0CS = 0;
+    OPTION_REGbits.PSA = 0;
+    OPTION_REGbits.PS2 = 1;
+    OPTION_REGbits.PS1 = 1;
+    OPTION_REGbits.PS0 = 1;
+    TMR0 = 236;
+    return;
+ }

@@ -54,9 +54,17 @@ uint8_t unidad_display = 0; //variables para displays
 uint8_t decena_display = 0;
 
 //------------------------------------------------------------------------------
+//                          Prototipos
+//------------------------------------------------------------------------------
+void setup(void);  //Configuración
+
+//------------------------------------------------------------------------------
 //                          Código Principal
 //------------------------------------------------------------------------------
 void main(void) {
+    setup(); //Configuración
+    while(1){
+    }
     return;
 }
 
@@ -91,3 +99,52 @@ void __interrupt() isr(void){
     }
     return;
 }
+
+//------------------------------------------------------------------------------
+//                          Configuración
+//------------------------------------------------------------------------------
+void setup(){
+    
+    //Configuracion reloj
+    OSCCONbits.IRCF2 = 1; //Frecuencia a 8MHZ
+    OSCCONbits.IRCF1 = 1;
+    OSCCONbits.IRCF0 = 1;
+    OSCCONbits.SCS = 1;
+    
+    //Configurar entradas y salidas
+    ANSELH = 0x00;//Pines digitales
+    ANSEL = 0x00; //Pines digitales
+    
+    TRISA = 0x00; //Para salida del contador
+    TRISB = 0x02; //Para push buttons
+    TRISC = 0x00; //Para salida de la LCD
+               
+    //Habilitar pullups
+    OPTION_REGbits.nRBPU = 0;
+    WPUB = 0x02;
+    
+    PORTA = 0x00; //Se limpian los puertos
+    PORTD = 0x00;
+    PORTB = 0x02; //Para condición de mismatch     
+    PORTC = 0x00;
+    PORTE = 0x00;
+    
+    //Configurar la interrupcion
+    INTCONbits.GIE = 1;
+    INTCONbits.T0IE = 1;
+    INTCONbits.T0IF = 0;
+    
+    //Interrupcion PORTB
+    INTCONbits.RBIE = 1; 
+    IOCB = 0x02;
+    INTCONbits.RBIF = 0; 	
+   
+    //Configurar TMR0
+    OPTION_REGbits.T0CS = 0;
+    OPTION_REGbits.PSA = 0;
+    OPTION_REGbits.PS2 = 1; //Prescaler 1:256
+    OPTION_REGbits.PS1 = 1;
+    OPTION_REGbits.PS0 = 1;
+    TMR0 = 236;  
+    return;
+ }  
