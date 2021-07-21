@@ -8,7 +8,7 @@
  *           Potenciómetro en PORTE, & push buttons en PORTB.
  * 
  * Creado: Julio 19, 2021
- * Última modificación: Julio, 2021
+ * Última modificación: Julio 21, 2021
  */
 
 //------------------------------------------------------------------------------
@@ -58,11 +58,11 @@
 //------------------------------------------------------------------------------
 //                          Variables
 //------------------------------------------------------------------------------
-uint8_t unidad_display = 0; //variables para displays
-uint8_t decena_display = 0;
+uint8_t primer_display = 0; //variables para displays
+uint8_t segundo_display = 0;
 uint8_t var_temp; 
-uint8_t unidad_temp = 0;
-uint8_t decena_temp = 0;
+uint8_t primer_temp = 0;
+uint8_t segundo_temp = 0;
 
 //------------------------------------------------------------------------------
 //                          Prototipos
@@ -77,15 +77,16 @@ void main(void) {
     ADCON0bits.GO = 1; //La conversión ADC se ejecuta
     while(1)
     {
-        ADC();
-        PORTEbits.RE0 = 0;
-        unidad_temp = var_temp & 0x0F;
-        decena_temp = (var_temp >> 4) & 0x0F;
-        unidad_display = number(unidad_temp);
-        decena_display = number(decena_temp);
+        ADC(); //Se hace la conversión del canal y se obtiene el valor del ADC
         
-        if(var_temp > PORTA){
-            PORTEbits.RE0 = 1;
+        PORTEbits.RE0 = 0; //Led de alarma apagado
+        primer_temp = var_temp & 0x0F; //Se obtiene el valor para el primer 
+        segundo_temp = (var_temp >> 4) & 0x0F; // y segundo display
+        primer_display = number(primer_temp); //Se obtiene el valor a desplegar
+        segundo_display = number(segundo_temp);
+        
+        if(var_temp > PORTA){ //Verifica si sobrepasó el valor de referencia
+            PORTEbits.RE0 = 1; //Se enciende la alarma
             __delay_ms(40);
         }
         }
@@ -100,14 +101,14 @@ void __interrupt() isr(void){
     if (INTCONbits.T0IF){ //Int TMR0
         PORTD = 0x00;
         if(PORTEbits.RE2 == 0){
-            PORTC = unidad_display; //Se muestra el valor de unidades
-            PORTDbits.RD0 = 1; //Se enciende el transistor con el display de unidades
-            PORTEbits.RE2 = 1; //Se enciende el transistor con el display de unidades
+            PORTC = primer_display; //Se muestra el valor en hex para el primer display
+            PORTDbits.RD0 = 1; //Se enciende el transistor para el primer display
+            PORTEbits.RE2 = 1; //Se hace el cambio de display
         }
         else if(PORTEbits.RE2 == 1){
-            PORTC = decena_display; //Se muestra el valor de decenas
-            PORTDbits.RD1 = 1; //Se enciende el transistor con el display de decenas
-            PORTEbits.RE2 = 0; //Se enciende el transistor con el display de unidades
+            PORTC = segundo_display; //Se muestra el valor en hex para el segundo display
+            PORTDbits.RD1 = 1; //Se enciende el transistor para el segundo display
+            PORTEbits.RE2 = 0; //Se hace el cambio de display
         }        
         TMR0 = 235; //Se reinicia el TMR0
         INTCONbits.T0IF = 0; //Se limpia la bandera
@@ -123,7 +124,7 @@ void __interrupt() isr(void){
         INTCONbits.RBIF = 0; //Se limpia la bandera
     }
     if (PIR1bits.ADIF){
-        var_temp = ADRESH;   
+        var_temp = ADRESH; //Se obtiene el valor del ADC
         PIR1bits.ADIF = 0; //Se limpia la bandera de ADC
     }
     
@@ -172,18 +173,18 @@ void setup(){
     ADCON0bits.ADON = 1;    //Habilitar la conversión ADC
     
     //Configurar la interrupcion
-    INTCONbits.GIE = 1;
-    INTCONbits.T0IE = 1;
-    INTCONbits.T0IF = 0;
+    INTCONbits.GIE = 1;  //Enable interrupciones globales
+    INTCONbits.T0IE = 1; //Enable TMR0
+    INTCONbits.T0IF = 0; //Se limpia la bandera de interrupción TMR0
     INTCONbits.PEIE = 1; //Enable interrupciones periféricas
     PIE1bits.ADIE = 1;   //Enable interrupción ADC
     PIR1bits.ADIF = 0;   //Se limpia bandera de interrupción ADC
     
     
     //Interrupcion PORTB
-    INTCONbits.RBIE = 1; 
+    INTCONbits.RBIE = 1; //Enable Interrupt on change
     IOCB = 0x03;
-    INTCONbits.RBIF = 0; 	
+    INTCONbits.RBIF = 0; //Se limpia la bandera de Interrupt on change	
    
     //Configurar TMR0
     OPTION_REGbits.T0CS = 0;
@@ -191,6 +192,6 @@ void setup(){
     OPTION_REGbits.PS2 = 1; //Prescaler 1:256
     OPTION_REGbits.PS1 = 1;
     OPTION_REGbits.PS0 = 1;
-    TMR0 = 236;  
+    TMR0 = 236;  //Se reinicia el TMR0
     return;
  }  

@@ -2673,11 +2673,11 @@ uint8_t number(uint8_t digito);
 
 
 
-uint8_t unidad_display = 0;
-uint8_t decena_display = 0;
+uint8_t primer_display = 0;
+uint8_t segundo_display = 0;
 uint8_t var_temp;
-uint8_t unidad_temp = 0;
-uint8_t decena_temp = 0;
+uint8_t primer_temp = 0;
+uint8_t segundo_temp = 0;
 
 
 
@@ -2693,11 +2693,12 @@ void main(void) {
     while(1)
     {
         ADC();
+
         PORTEbits.RE0 = 0;
-        unidad_temp = var_temp & 0x0F;
-        decena_temp = (var_temp >> 4) & 0x0F;
-        unidad_display = number(unidad_temp);
-        decena_display = number(decena_temp);
+        primer_temp = var_temp & 0x0F;
+        segundo_temp = (var_temp >> 4) & 0x0F;
+        primer_display = number(primer_temp);
+        segundo_display = number(segundo_temp);
 
         if(var_temp > PORTA){
             PORTEbits.RE0 = 1;
@@ -2715,12 +2716,12 @@ void __attribute__((picinterrupt(("")))) isr(void){
     if (INTCONbits.T0IF){
         PORTD = 0x00;
         if(PORTEbits.RE2 == 0){
-            PORTC = unidad_display;
+            PORTC = primer_display;
             PORTDbits.RD0 = 1;
             PORTEbits.RE2 = 1;
         }
         else if(PORTEbits.RE2 == 1){
-            PORTC = decena_display;
+            PORTC = segundo_display;
             PORTDbits.RD1 = 1;
             PORTEbits.RE2 = 0;
         }

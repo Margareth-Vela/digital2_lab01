@@ -17,9 +17,9 @@
 [v _number number `(uc  1 e 1 0 ]
 "75 C:\Users\vema3\OneDrive\Documents\GitHub\digital2_lab01\Lab01_digital2.X\Lab01_main.c
 [v _main main `(v  1 e 1 0 ]
-"98
+"99
 [v _isr isr `II(v  1 e 1 0 ]
-"136
+"137
 [v _setup setup `(v  1 e 1 0 ]
 "59 C:/Program Files/Microchip/MPLABX/v5.45/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f887.h
 [v _TMR0 TMR0 `VEuc  1 e 1 @1 ]
@@ -187,24 +187,24 @@
 "9 C:\Users\vema3\OneDrive\Documents\GitHub\digital2_lab01\Lab01_digital2.X\Display.c
 [v _tab7seg tab7seg `[16]uc  1 e 16 0 ]
 "61 C:\Users\vema3\OneDrive\Documents\GitHub\digital2_lab01\Lab01_digital2.X\Lab01_main.c
-[v _unidad_display unidad_display `uc  1 e 1 0 ]
+[v _primer_display primer_display `uc  1 e 1 0 ]
 "62
-[v _decena_display decena_display `uc  1 e 1 0 ]
+[v _segundo_display segundo_display `uc  1 e 1 0 ]
 "63
 [v _var_temp var_temp `uc  1 e 1 0 ]
 "64
-[v _unidad_temp unidad_temp `uc  1 e 1 0 ]
+[v _primer_temp primer_temp `uc  1 e 1 0 ]
 "65
-[v _decena_temp decena_temp `uc  1 e 1 0 ]
+[v _segundo_temp segundo_temp `uc  1 e 1 0 ]
 "75
 [v _main main `(v  1 e 1 0 ]
 {
-"93
+"94
 } 0
-"136
+"137
 [v _setup setup `(v  1 e 1 0 ]
 {
-"196
+"197
 } 0
 "11 C:\Users\vema3\OneDrive\Documents\GitHub\digital2_lab01\Lab01_digital2.X\Display.c
 [v _number number `(uc  1 e 1 0 ]
@@ -222,8 +222,8 @@
 {
 "23
 } 0
-"98 C:\Users\vema3\OneDrive\Documents\GitHub\digital2_lab01\Lab01_digital2.X\Lab01_main.c
+"99 C:\Users\vema3\OneDrive\Documents\GitHub\digital2_lab01\Lab01_digital2.X\Lab01_main.c
 [v _isr isr `II(v  1 e 1 0 ]
 {
-"131
+"132
 } 0
