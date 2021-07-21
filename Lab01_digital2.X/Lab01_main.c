@@ -77,19 +77,16 @@ void main(void) {
     ADCON0bits.GO = 1; //La conversión ADC se ejecuta
     while(1)
     {
-        if(ADCON0bits.GO == 0){ //Si la conversión ya está terminada
-            ADC(6);
-            ADCON0bits.GO = 1; //Se vuelve a ejecutar la conversión ADC
-        }
+        ADC();
         PORTEbits.RE0 = 0;
         unidad_temp = var_temp & 0x0F;
-        decena_temp = var_temp & 0xF0;
+        decena_temp = (var_temp >> 4) & 0x0F;
         unidad_display = number(unidad_temp);
         decena_display = number(decena_temp);
         
-        if(var_temp == PORTA){
+        if(var_temp > PORTA){
             PORTEbits.RE0 = 1;
-            __delay_ms(50);
+            __delay_ms(40);
         }
         }
     return;

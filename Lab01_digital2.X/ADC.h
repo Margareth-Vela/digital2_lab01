@@ -12,7 +12,7 @@
 #include <xc.h> // include processor files - each processor file is guarded.  
 #include <stdint.h>
 
-void ADC(uint8_t channel);
+void ADC(void);
 
 #endif	/* XC_HEADER_TEMPLATE_H */
 

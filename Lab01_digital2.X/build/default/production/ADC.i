@@ -2636,7 +2636,7 @@ typedef uint16_t uintptr_t;
 # 13 "./ADC.h" 2
 
 
-void ADC(uint8_t channel);
+void ADC(void);
 # 9 "ADC.c" 2
 
 
@@ -2645,64 +2645,11 @@ void ADC(uint8_t channel);
 
 
 
-void ADC(uint8_t channel) {
-    switch (channel){
-        case 0:
-            ADCON0bits.CHS = 0;
-            _delay((unsigned long)((50)*(4000000/4000000.0)));
-            break;
-        case 1:
-            ADCON0bits.CHS = 1;
-            _delay((unsigned long)((50)*(4000000/4000000.0)));
-            break;
-        case 2:
-            ADCON0bits.CHS = 2;
-            _delay((unsigned long)((50)*(4000000/4000000.0)));
-            break;
-        case 3:
-            ADCON0bits.CHS = 3;
-            _delay((unsigned long)((50)*(4000000/4000000.0)));
-            break;
-        case 4:
-            ADCON0bits.CHS = 4;
-            _delay((unsigned long)((50)*(4000000/4000000.0)));
-            break;
-        case 5:
-            ADCON0bits.CHS = 5;
-            _delay((unsigned long)((50)*(4000000/4000000.0)));
-            break;
-        case 6:
+void ADC() {
+        if(ADCON0bits.GO == 0){
             ADCON0bits.CHS = 6;
             _delay((unsigned long)((50)*(4000000/4000000.0)));
-            break;
-        case 7:
-            ADCON0bits.CHS = 7;
-            _delay((unsigned long)((50)*(4000000/4000000.0)));
-            break;
-        case 8:
-            ADCON0bits.CHS = 8;
-            _delay((unsigned long)((50)*(4000000/4000000.0)));
-            break;
-        case 9:
-            ADCON0bits.CHS = 9;
-            _delay((unsigned long)((50)*(4000000/4000000.0)));
-            break;
-        case 10:
-            ADCON0bits.CHS = 10;
-            _delay((unsigned long)((50)*(4000000/4000000.0)));
-            break;
-        case 11:
-            ADCON0bits.CHS = 11;
-            _delay((unsigned long)((50)*(4000000/4000000.0)));
-            break;
-        case 12:
-            ADCON0bits.CHS = 12;
-            _delay((unsigned long)((50)*(4000000/4000000.0)));
-            break;
-        default:
-            ADCON0bits.CHS = 13;
-            _delay((unsigned long)((50)*(4000000/4000000.0)));
-            break;
-    }
+            ADCON0bits.GO = 1;
+        }
     return;
 }

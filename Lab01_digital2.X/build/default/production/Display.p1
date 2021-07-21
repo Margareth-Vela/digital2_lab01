@@ -264,7 +264,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [v _digito `uc ~T0 @X0 1 r1 ]
 [f ]
 "12
-[; ;Display.c: 12:     uint8_t data = tab7seg[digito];;
+[; ;Display.c: 12:     uint8_t data = tab7seg[digito];
 [v _data `uc ~T0 @X0 1 a ]
 [e = _data *U + &U _tab7seg * -> _digito `ux -> -> # *U &U _tab7seg `ui `ux ]
 "13

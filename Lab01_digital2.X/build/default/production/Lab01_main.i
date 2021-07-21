@@ -2631,7 +2631,7 @@ typedef uint16_t uintptr_t;
 # 13 "./ADC.h" 2
 
 
-void ADC(uint8_t channel);
+void ADC(void);
 # 19 "Lab01_main.c" 2
 
 # 1 "./Display.h" 1
@@ -2692,19 +2692,16 @@ void main(void) {
     ADCON0bits.GO = 1;
     while(1)
     {
-        if(ADCON0bits.GO == 0){
-            ADC(6);
-            ADCON0bits.GO = 1;
-        }
+        ADC();
         PORTEbits.RE0 = 0;
         unidad_temp = var_temp & 0x0F;
-        decena_temp = var_temp & 0xF0;
+        decena_temp = (var_temp >> 4) & 0x0F;
         unidad_display = number(unidad_temp);
         decena_display = number(decena_temp);
 
-        if(var_temp == PORTA){
+        if(var_temp > PORTA){
             PORTEbits.RE0 = 1;
-            _delay((unsigned long)((50)*(4000000/4000.0)));
+            _delay((unsigned long)((40)*(4000000/4000.0)));
         }
         }
     return;

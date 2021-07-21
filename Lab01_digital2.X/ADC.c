@@ -13,64 +13,11 @@
 //------------------------------------------------------------------------------
 #define _XTAL_FREQ 4000000 //Para delay
 
-void ADC(uint8_t channel) {
-    switch (channel){
-        case 0:
-            ADCON0bits.CHS = 0;  //pasa al segundo canal            
-            __delay_us(50); //Delay para el capacitor sample/hold
-            break;
-        case 1:
-            ADCON0bits.CHS = 1;  //pasa al segundo canal            
-            __delay_us(50); //Delay para el capacitor sample/hold
-            break;
-        case 2:
-            ADCON0bits.CHS = 2;  //pasa al segundo canal            
-            __delay_us(50); //Delay para el capacitor sample/hold
-            break;
-        case 3:
-            ADCON0bits.CHS = 3;  //pasa al segundo canal            
-            __delay_us(50); //Delay para el capacitor sample/hold
-            break;
-        case 4:
-            ADCON0bits.CHS = 4;  //pasa al segundo canal            
-            __delay_us(50); //Delay para el capacitor sample/hold
-            break;
-        case 5:
-            ADCON0bits.CHS = 5;  //pasa al segundo canal            
-            __delay_us(50); //Delay para el capacitor sample/hold
-            break;
-        case 6:
+void ADC() {
+        if(ADCON0bits.GO == 0){ //Si la conversión ya está terminada
             ADCON0bits.CHS = 6;  //pasa al segundo canal            
             __delay_us(50); //Delay para el capacitor sample/hold
-            break;
-        case 7:
-            ADCON0bits.CHS = 7;  //pasa al segundo canal            
-            __delay_us(50); //Delay para el capacitor sample/hold
-            break;
-        case 8:
-            ADCON0bits.CHS = 8;  //pasa al segundo canal            
-            __delay_us(50); //Delay para el capacitor sample/hold
-            break;
-        case 9:
-            ADCON0bits.CHS = 9;  //pasa al segundo canal            
-            __delay_us(50); //Delay para el capacitor sample/hold
-            break;
-        case 10:
-            ADCON0bits.CHS = 10;  //pasa al segundo canal            
-            __delay_us(50); //Delay para el capacitor sample/hold
-            break;
-        case 11:
-            ADCON0bits.CHS = 11;  //pasa al segundo canal            
-            __delay_us(50); //Delay para el capacitor sample/hold
-            break;
-        case 12:
-            ADCON0bits.CHS = 12;  //pasa al segundo canal            
-            __delay_us(50); //Delay para el capacitor sample/hold
-            break;
-        default:
-            ADCON0bits.CHS = 13;  //pasa al segundo canal            
-            __delay_us(50); //Delay para el capacitor sample/hold
-            break;       
-    } 
+            ADCON0bits.GO = 1; //Se vuelve a ejecutar la conversión ADC
+        }              
     return;
 }
